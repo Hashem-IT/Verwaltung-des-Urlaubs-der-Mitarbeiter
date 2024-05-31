@@ -28,138 +28,138 @@ int stringToInt(const string &str)
 // Definition der Mitarbeiter-Klasse
 class Mitarbeiter
 {
-    private:
-        string nachname;        // Name des Mitarbeiters
-        string vorname;         // Vorname des Mitarbeiters
-        string geburtsdatum;    // Geburtsdatum des Mitarbeiters
-        int behinderungsgrad;   // Grad der Behinderung des Mitarbeiters
-        int genommenUrlaub;     // Anzahl der genommenen Urlaubstage
+private:
+    string nachname;        // Name des Mitarbeiters
+    string vorname;         // Vorname des Mitarbeiters
+    string geburtsdatum;    // Geburtsdatum des Mitarbeiters
+    int behinderungsgrad;   // Grad der Behinderung des Mitarbeiters
+    int genommenUrlaub;     // Anzahl der genommenen Urlaubstage
 
-    public:
-        // Konstruktor der Klasse Mitarbeiter
-        Mitarbeiter(const string& nachname, const string& vorname, const string& gebDatum, int behindGrad)
-                : nachname(nachname), vorname(vorname), geburtsdatum(gebDatum), behinderungsgrad(behindGrad), genommenUrlaub(0) {}
+public:
+    // Konstruktor der Klasse Mitarbeiter
+    Mitarbeiter(const string& nachname, const string& vorname, const string& gebDatum, int behindGrad)
+            : nachname(nachname), vorname(vorname), geburtsdatum(gebDatum), behinderungsgrad(behindGrad), genommenUrlaub(0) {}
 
-        // Getter  für NachName
-        const string& getNachName() const { return nachname; }
+    // Getter  für NachName
+    const string& getNachName() const { return nachname; }
 
-        // Getter  für Vorname
-        const string& getVorname() const { return vorname; }
+    // Getter  für Vorname
+    const string& getVorname() const { return vorname; }
 
-        // Berechnung und Verwaltung des Urlaubs
-        int UrlaubstageRechnen() const
-        {
-            int basisUrlaub = 30;                                                   // Basisurlaubstage
-            int currentJahr = 2024;                                                 // Aktuelles Jahr
-            int geburtsjahr = stringToInt (geburtsdatum.substr(0, 4));   // Extrahiere Geburtsjahr aus dem Geburtsdatum
+    // Berechnung und Verwaltung des Urlaubs
+    int UrlaubstageRechnen() const
+    {
+        int basisUrlaub = 30;                                                   // Basisurlaubstage
+        int currentJahr = 2024;                                                 // Aktuelles Jahr
+        int geburtsjahr = stringToInt (geburtsdatum.substr(0, 4));   // Extrahiere Geburtsjahr aus dem Geburtsdatum
 
-            // Bedienung: Wenn der Mitarbeiter 50 Jahre oder älter ist, Zusätzliche 2 Urlaubstage hinzufügen
-            if (currentJahr - geburtsjahr >= 50)
-            { basisUrlaub += 2;}
-            // Bedienung: Wenn der Behinderungsgrad 50% oder mehr beträgt,Zusätzliche 5 Urlaubstage hinzufügen
-            if (behinderungsgrad >= 50)
-            { basisUrlaub += 5;}
-            return basisUrlaub;
-        }
+        // Bedienung: Wenn der Mitarbeiter 50 Jahre oder älter ist, Zusätzliche 2 Urlaubstage hinzufügen
+        if (currentJahr - geburtsjahr >= 50)
+        { basisUrlaub += 2;}
+        // Bedienung: Wenn der Behinderungsgrad 50% oder mehr beträgt,Zusätzliche 5 Urlaubstage hinzufügen
+        if (behinderungsgrad >= 50)
+        { basisUrlaub += 5;}
+        return basisUrlaub;
+    }
 
-        // Methode zum Eintragen von Urlaub
-        void urlaubNehmen(int tage) { genommenUrlaub += tage; }
+    // Methode zum Eintragen von Urlaub
+    void urlaubNehmen(int tage) { genommenUrlaub += tage; }
 
-        // Berechnung des restUrlaubs
-        int restUrlaub() const { return UrlaubstageRechnen() - genommenUrlaub; }
+    // Berechnung des restUrlaubs
+    int restUrlaub() const { return UrlaubstageRechnen() - genommenUrlaub; }
 
-        // Anzeige der Mitarbeiterinfo
-        void anzeigen() const
-        {
-            cout << "Name: " << nachname << ", " <<  vorname << "\n"
-                 << "Geburtsdatum: " << geburtsdatum << "\n"
-                 << "Grad der Behinderung: " << behinderungsgrad << "%\n"
-                 << "Genommener Urlaub: " << genommenUrlaub << " Tage\n"
-                 << "RestUrlaub: " << restUrlaub() << " Tage\n";
-        }
+    // Anzeige der Mitarbeiterinfo
+    void anzeigen() const
+    {
+        cout << "Name: " << nachname << ", " <<  vorname << "\n"
+             << "Geburtsdatum: " << geburtsdatum << "\n"
+             << "Grad der Behinderung: " << behinderungsgrad << "%\n"
+             << "Genommener Urlaub: " << genommenUrlaub << " Tage\n"
+             << "RestUrlaub: " << restUrlaub() << " Tage\n";
+    }
 };
 
 // Definition der Verwaltung-Klasse
 class Verwaltung
 {
-    private:
-        Mitarbeiter* mitarbeiterListe[500];                                   // Array von Zeigern auf Mitarbeiter
-    public:
-        int anzahlMitarbeiter;                                              // Anzahl der Mitarbeiter
+private:
+    Mitarbeiter* mitarbeiterListe[500];                                   // Array von Zeigern auf Mitarbeiter
+public:
+    int anzahlMitarbeiter;                                              // Anzahl der Mitarbeiter
 
-    public:
-        // Konstruktor der Klasse Verwaltung
-        Verwaltung() : anzahlMitarbeiter(0) {}
+public:
+    // Konstruktor der Klasse Verwaltung
+    Verwaltung() : anzahlMitarbeiter(0) {}
 
-        // Methode zum Hinzufügen eines Mitarbeiters
-        void mitarbeiterHinzufugen(const Mitarbeiter& m)
-        {                                                                   // Überprüfen, ob die maximale Anzahl erreicht ist
-            mitarbeiterListe[anzahlMitarbeiter] = new Mitarbeiter(m);   // Mitarbeiter hinzufügen
-            anzahlMitarbeiter++;                                        // Anzahl der Mitarbeiter erhöhen
-        }
+    // Methode zum Hinzufügen eines Mitarbeiters
+    void mitarbeiterHinzufugen(const Mitarbeiter& m)
+    {                                                                   // Überprüfen, ob die maximale Anzahl erreicht ist
+        mitarbeiterListe[anzahlMitarbeiter] = new Mitarbeiter(m);   // Mitarbeiter hinzufügen
+        anzahlMitarbeiter++;                                        // Anzahl der Mitarbeiter erhöhen
+    }
 
-        // Methode zum Eintragen von Urlaub
-        void urlaubEintragen(const string& nachname, const string& vorname, int tage)
+    // Methode zum Eintragen von Urlaub
+    void urlaubEintragen(const string& nachname, const string& vorname, int tage)
+    {
+        for (int i = 0; i < anzahlMitarbeiter; i++)
         {
-            for (int i = 0; i < anzahlMitarbeiter; i++)
+            // Bedienung: Wenn der die Name und Vorname stimmen, beantragen für Urlaubtagen
+            if (mitarbeiterListe[i]->getNachName() == nachname && mitarbeiterListe[i]->getVorname() == vorname)
             {
-                // Bedienung: Wenn der die Name und Vorname stimmen, beantragen für Urlaubtagen
-                if (mitarbeiterListe[i]->getNachName() == nachname && mitarbeiterListe[i]->getVorname() == vorname)
-                {
-                    mitarbeiterListe[i]->urlaubNehmen(tage);                // Urlaub eintragen
-                    mitarbeiterListe[i]->anzeigen();                        // Mitarbeiterinformationen anzeigen
-                    return;
-                }
+                mitarbeiterListe[i]->urlaubNehmen(tage);                // Urlaub eintragen
+                mitarbeiterListe[i]->anzeigen();                        // Mitarbeiterinformationen anzeigen
+                return;
             }
-            cout << "Mitarbeiter nicht gefunden.\n";
+        }
+        cout << "Mitarbeiter nicht gefunden.\n";
+        cout << endl;
+    }
+
+    // Methode zum Suchen eines Mitarbeiters
+    void mitarbeiterSuchen(const string& nachname, const string& vorname)
+    {
+        for (int i = 0; i < anzahlMitarbeiter; i++)
+        {
+            // Bedienung: Wenn der die Name und Vorname stimmen, gib die Info über den Mitarbeiter zurück
+            if (mitarbeiterListe[i]->getNachName() == nachname && mitarbeiterListe[i]->getVorname() == vorname)
+            {
+                mitarbeiterListe[i]->anzeigen();                        // Mitarbeiterinformationen anzeigen
+                return;
+            }
+        }
+        cout << "Mitarbeiter nicht gefunden.\n";
+        cout << endl;
+    }
+
+    // Methode zum Anzeigen aller Mitarbeiter
+    void alleMitarbeiterAnzeigen()
+    {
+        for (int i = 0; i < anzahlMitarbeiter; i++)
+        {
+            mitarbeiterListe[i]->anzeigen();                              // Mitarbeiterinformationen anzeigen
             cout << endl;
         }
+    }
 
-        // Methode zum Suchen eines Mitarbeiters
-        void mitarbeiterSuchen(const string& nachname, const string& vorname)
+    // Methode zum Löschen eines Mitarbeiters
+    void mitarbeiterLoschen(const string& nachname, const string& vorname)
+    {
+        for (int i = 0; i < anzahlMitarbeiter; i++)
         {
-            for (int i = 0; i < anzahlMitarbeiter; i++)
+            if (mitarbeiterListe[i]->getNachName() == nachname && mitarbeiterListe[i]->getVorname() == vorname)
             {
-                // Bedienung: Wenn der die Name und Vorname stimmen, gib die Info über den Mitarbeiter zurück
-                if (mitarbeiterListe[i]->getNachName() == nachname && mitarbeiterListe[i]->getVorname() == vorname)
-                {
-                    mitarbeiterListe[i]->anzeigen();                        // Mitarbeiterinformationen anzeigen
-                    return;
+                mitarbeiterListe[i] = NULL;                             // Mitarbeiter löschen
+
+                for (int j = i; j < anzahlMitarbeiter - 1; j++) {
+                    mitarbeiterListe[j] = mitarbeiterListe[j + 1];      // Array neu organisieren
                 }
-            }
-            cout << "Mitarbeiter nicht gefunden.\n";
-            cout << endl;
-        }
-
-        // Methode zum Anzeigen aller Mitarbeiter
-        void alleMitarbeiterAnzeigen()
-        {
-            for (int i = 0; i < anzahlMitarbeiter; i++)
-            {
-                mitarbeiterListe[i]->anzeigen();                              // Mitarbeiterinformationen anzeigen
-                cout << endl;
+                anzahlMitarbeiter--;                                    // Anzahl der Mitarbeiter verringern
+                cout << "Mitarbeiter erfolgreich geloscht.\n";
+                return;
             }
         }
-
-        // Methode zum Löschen eines Mitarbeiters
-        void mitarbeiterLoschen(const string& nachname, const string& vorname)
-        {
-            for (int i = 0; i < anzahlMitarbeiter; i++)
-            {
-                if (mitarbeiterListe[i]->getNachName() == nachname && mitarbeiterListe[i]->getVorname() == vorname)
-                {
-                    mitarbeiterListe[i] = NULL;                             // Mitarbeiter löschen
-
-                    for (int j = i; j < anzahlMitarbeiter - 1; j++) {
-                        mitarbeiterListe[j] = mitarbeiterListe[j + 1];      // Array neu organisieren
-                    }
-                    anzahlMitarbeiter--;                                    // Anzahl der Mitarbeiter verringern
-                    cout << "Mitarbeiter erfolgreich geloscht.\n";
-                    return;
-                }
-            }
-            cout << "Mitarbeiter nicht gefunden.\n";
-        }
+        cout << "Mitarbeiter nicht gefunden.\n";
+    }
 
 };
 
