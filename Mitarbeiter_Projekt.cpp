@@ -1,8 +1,3 @@
-//
-//  Erstellet von Hashem, Mohamad Yassin am 01.05.2024.
-//  Leistungsnachweis zum vhb-Kurs „C++ Teil 1“
-//  Abgabe :25. Mai 2024
-//
 
 #include <iostream>     // Ein- und Ausgabe
 #include <string>       // Zeichenkettenverarbeitung
